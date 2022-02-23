@@ -11,13 +11,44 @@ const Home = () => {
 			<img src={heroLanding} alt='Landing Page' className='home__image' />
 
 			<div className='home__row'>
-				<Product
-					key={products.id}
-					title={products.title}
-					image={products.image}
-					rating={products.rating}
-					price={products.price}
-				/>
+				{products.map(
+					(product, index) =>
+						index < 2 && (
+							<Product
+								key={product.id + index}
+								title={product.title}
+								rating={product.rating}
+								price={product.price}
+								image={product.image}
+							/>
+						)
+				)}
+			</div>
+			<div className='home__row'>
+				{products.map((product, index) =>
+					(index > 1) & (index < 5) ? (
+						<Product
+							key={product.id + index}
+							title={product.title}
+							rating={product.rating}
+							price={product.price}
+							image={product.image}
+						/>
+					) : null
+				)}
+			</div>
+			<div className='home__row'>
+				{products.map((product, index) =>
+					index > 4 ? (
+						<Product
+							key={product.id + index}
+							title={product.title}
+							rating={product.rating}
+							price={product.price}
+							image={product.image}
+						/>
+					) : null
+				)}
 			</div>
 		</div>
 	)

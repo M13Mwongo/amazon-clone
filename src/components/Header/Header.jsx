@@ -35,7 +35,7 @@ const Header = () => {
 				</div>
 				<div className='header__option-basket'>
 					<BasketIcon />
-					<spa className='header__option-lineTwo header__basketCount'>0</spa>
+					<span className='header__option-lineTwo header__basketCount'>0</span>
 				</div>
 			</div>
 		</div>
