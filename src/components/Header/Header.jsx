@@ -1,13 +1,20 @@
 import React from 'react'
 import { BsCart4 as BasketIcon, BsSearch as Search } from 'react-icons/bs'
+import { Link } from 'react-router-dom'
+import { useStateValue } from '../../contextAPI/StateProvider'
+
 import { logo } from '../../constants'
 
 import './Header.css'
 
 const Header = () => {
+	const [{ basket, user }, dispatch] = useStateValue()
+
 	return (
 		<div className='header'>
-			<img src={logo} alt='Amazon Logo' className='header__logo' />
+			<Link to='/'>
+				<img src={logo} alt='Amazon Logo' className='header__logo' />
+			</Link>
 
 			<div className='header__search'>
 				<input
@@ -33,10 +40,14 @@ const Header = () => {
 					<span className='header__option-lineOne'>Your</span>
 					<span className='header__option-lineTwo'>Prime</span>
 				</div>
-				<div className='header__option-basket'>
-					<BasketIcon />
-					<span className='header__option-lineTwo header__basketCount'>0</span>
-				</div>
+				<Link to='/checkout'>
+					<div className='header__option-basket'>
+						<BasketIcon />
+						<span className='header__option-lineTwo header__basketCount'>
+							{basket?.length}
+						</span>
+					</div>
+				</Link>
 			</div>
 		</div>
 	)
