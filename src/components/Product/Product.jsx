@@ -1,27 +1,11 @@
 import React from 'react'
-import { useStateValue } from '../../contextAPI/StateProvider'
+import PropTypes from 'prop-types'
 
 import './Product.css'
 
 const Product = ({ id, title, image, price, rating }) => {
-	const [{ basket }, dispatch] = useStateValue()
-
-	const addToBasket = () => {
-		// dispatch the item into the data layer
-		dispatch({
-			type: 'ADD_TO_BASKET',
-			item: {
-				id: id,
-				title: title,
-				image: image,
-				price: price,
-				rating: rating
-			}
-		})
-	}
-
 	return (
-		<div className='product' id={id}>
+		<div className='product'>
 			<div className='product__info'>
 				<p>{title}</p>
 				<p className='product__price'>
@@ -32,20 +16,24 @@ const Product = ({ id, title, image, price, rating }) => {
 					{Array(rating)
 						.fill()
 						.map((_, i) => (
-							<span key={i} className='product__rating-star'>
-								&#9733;
-							</span>
+							<p className='product__rating-star'>&#9733;</p>
 						))}
 				</div>
 			</div>
 
 			<img src={image} className='product__image' alt={id} />
 
-			<button className='product__button' onClick={addToBasket}>
-				Add to Basket
-			</button>
+			<button className='product__button'>Add to Basket</button>
 		</div>
 	)
 }
 
 export default Product
+
+Product.propTypes = {
+	id: PropTypes.number.isRequired,
+	title: PropTypes.string,
+	image: PropTypes.any,
+	price: PropTypes.number,
+	rating: PropTypes.symbol
+}
