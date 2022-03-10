@@ -7,11 +7,14 @@
 	--black: #111;
 	--blue: #131921;
 	--lightblue: #f0faff;
-	--orange: #cd9042;
+	--orange: #ffad4c;
 	--grey: #b8bfca;
+	--red: #fb0000;
+	--fadedgrey: rgb(184, 191, 202, 0.35);
 	--darkgreen: #359189;
 	--lightgreen: #359189;
-	--altOrange: #bc871e;
+	--altorange: #e2a325;
+	--altaltorange: #bc871e;
 }
 
 * {
