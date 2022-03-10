@@ -1,0 +1,14 @@
+.test {
+	display: flex;
+	flex-direction: column;
+	margin-top: auto;
+	margin-bottom: auto;
+	height: calc(100vh - 60px);
+	justify-content: center;
+	align-items: center;
+	transition: 0.2s ease-in-out;
+}
+
+.scaleLoader {
+	color: var(--orange);
+}
