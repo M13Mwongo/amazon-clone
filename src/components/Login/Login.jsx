@@ -17,7 +17,7 @@ const Login = () => {
 	const signIn = (e) => {
 		e.preventDefault()
 		signInWithEmailAndPassword(auth, email, password)
-			.then((auth) => {
+			.then((authenticatedUser) => {
 				// Signed in
 				//const user = auth.user
 				navigate('/', { replace: true })
@@ -30,7 +30,7 @@ const Login = () => {
 	const register = (e) => {
 		e.preventDefault()
 		createUserWithEmailAndPassword(auth, email, password)
-			.then((auth) => {
+			.then((authenticatedUser) => {
 				// Signed in
 				//const user = auth.user
 				navigate('/', { replace: true })

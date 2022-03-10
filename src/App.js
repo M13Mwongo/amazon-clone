@@ -11,7 +11,10 @@ function App() {
 
 	useEffect(() => {
 		auth.onAuthStateChanged((authUser) => {
-			console.log('THE USER IS >>> ', authUser)
+			console.log(
+				'THE USER IS >>> ',
+				authUser ? authUser.email : 'NOT SIGNED IN'
+			)
 
 			if (authUser) {
 				// the user just logged in / the user was logged in
@@ -27,7 +30,7 @@ function App() {
 				})
 			}
 		})
-	}, [])
+	}, [auth])
 
 	return (
 		<Router>

@@ -14,6 +14,9 @@ const Header = () => {
 			auth.signOut()
 		}
 	}
+	const status = () => {
+		console.log(user)
+	}
 
 	return (
 		<div className='header'>
@@ -27,7 +30,7 @@ const Header = () => {
 					type='text'
 					placeholder='Search ...'
 				/>
-				<span className='header__searchIcon'>
+				<span className='header__searchIcon' onClick={status}>
 					<Search className='header__searchIcon-icon' />
 				</span>
 			</div>

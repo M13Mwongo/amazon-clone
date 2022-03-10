@@ -21,17 +21,21 @@ const Product = ({ id, title, image, price, rating }) => {
 	return (
 		<div className='product'>
 			<div className='product__info'>
-				<p>{title}</p>
-				<p hidden>{id}</p>
+				<h4>{title}</h4>
+				<p hidden key={id}>
+					{id}
+				</p>
 				<p className='product__price'>
 					<small className='product__price-dollar'>&#36;</small>
-					<strong>{price}</strong>
+					<strong key={id}>{price}</strong>
 				</p>
 				<div className='product__rating'>
 					{Array(rating)
 						.fill()
 						.map((_, i) => (
-							<p className='product__rating-star'>&#9733;</p>
+							<p className='product__rating-star' key={i}>
+								&#9733;
+							</p>
 						))}
 				</div>
 			</div>
@@ -48,9 +52,9 @@ const Product = ({ id, title, image, price, rating }) => {
 export default Product
 
 Product.propTypes = {
-	id: PropTypes.string.isRequired,
+	id: PropTypes.string,
 	title: PropTypes.string,
 	image: PropTypes.any,
 	price: PropTypes.number,
-	rating: PropTypes.symbol
+	rating: PropTypes.number
 }
