@@ -1,6 +1,11 @@
 button:hover {
 	cursor: pointer;
 }
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
 .login {
 	background-color: var(--purewhite);
@@ -8,14 +13,12 @@ button:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
 }
 
 .login__mainContainer {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-top: -100px;
 }
 .login__logo {
 	margin-top: 20px;
@@ -44,12 +47,17 @@ button:hover {
 	margin-bottom: 20px;
 }
 
-.login__input {
-	margin-bottom: 20px;
+.login__tab,
+.login__tab:focus {
+	color: var(--darkgreen);
 }
 
-.login__input > h5 {
-	margin-bottom: 5px;
+.login__tab:focus span {
+	color: var(--darkgreen);
+}
+
+.login__input {
+	margin-bottom: 20px;
 }
 
 .login__input input {
@@ -80,9 +88,13 @@ button:hover {
 	font-size: 12px;
 }
 
+.login__header_text {
+	font-size: 2em;
+}
+
 .login__signInButton {
 	background: var(--orange);
-	border-radius: 2px;
+	border-radius: 5px;
 	width: 100%;
 	height: 30px;
 	border: 2px solid var(--grey);
@@ -95,16 +107,16 @@ button:hover {
 }
 
 .login__registerButton {
-	border-radius: 2px;
+	border-radius: 5px;
+	border: none;
+	background-color: var(--lightgreen);
 	width: 100%;
 	height: 30px;
-	border: 1px solid var(--grey);
 	margin-top: 10px;
 }
 .login__registerButton:hover {
 	background-color: var(--darkgreen);
 	color: var(--altwhite);
-	transition: 0.12s ease-in-out;
 }
 
 .fake {

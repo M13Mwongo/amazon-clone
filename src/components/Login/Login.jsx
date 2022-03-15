@@ -1,117 +1,112 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { auth } from '../../fbConfig'
-import {
-	createUserWithEmailAndPassword,
-	signInWithEmailAndPassword
-} from 'firebase/auth'
+import PropTypes from 'prop-types'
+import { Tab, Tabs, Box, Typography } from '@mui/material'
+import Signin from './SignIn/SignIn.jsx'
+import Signup from './SignUp/SignUp.jsx'
 import { icon } from '../../constants'
 import { ScaleLoader } from 'react-spinners'
-
 import './Login.css'
+
+function TabPanel({ children, value, index }) {
+	return (
+		<div
+			role='tabpanel'
+			hidden={value !== index}
+			id={`simple-tabpanel-${index}`}
+		>
+			{value === index && (
+				<Box sx={{ p: 3 }}>
+					<Typography>{children}</Typography>
+				</Box>
+			)}
+		</div>
+	)
+}
+
+function a11yProps(index) {
+	return {
+		id: `simple-tab-${index}`,
+		'aria-controls': `simple-tabpanel-${index}`
+	}
+}
 
 const Login = () => {
 	const navigate = useNavigate()
+	const [value, setValue] = useState(0)
+	const [loading, setLoading] = useState(false)
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const [loading, setLoading] = useState(false)
+	const [confirmPassword, setConfirmPassword] = useState('')
+	const [fName, setfName] = useState('')
+	const [lName, setlName] = useState('')
 
-	const signIn = async (e) => {
-		e.preventDefault()
-		setLoading(true)
-		await signInWithEmailAndPassword(auth, email, password)
-			.then((authenticatedUser) => {
-				// Signed in
-				//const user = auth.user
-				navigate('/', { replace: true })
-				setLoading(false)
-			})
-			.catch((error) => {
-				alert(error.message)
-			})
-	}
-
-	const register = async (e) => {
-		e.preventDefault()
-		setLoading(true)
-		await createUserWithEmailAndPassword(auth, email, password)
-			.then((authenticatedUser) => {
-				// Signed in
-				//const user = auth.user
-				navigate('/', { replace: true })
-				setLoading(false)
-			})
-			.catch((error) => {
-				alert(error.message)
-				console.log(error.message + ' ' + error.code)
-			})
+	const handleChange = (event, newValue) => {
+		setValue(newValue)
+		setEmail('')
+		setPassword('')
+		setfName('')
+		setlName('')
 	}
 
 	return (
-		<div className='login'>
+		<div className={`login ${loading && `center`}`}>
 			{loading ? (
 				<ScaleLoader color='orange' height='160px' width='8px' />
 			) : (
-				<div className='login__mainContainer'>
+				<Box sx={{ width: '100%' }} className='login__mainContainer'>
 					<Link to='/'>
 						<img className='login__logo' src={icon} alt='Webiste logo' />
 					</Link>
+					<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+						<Tabs
+							value={value}
+							onChange={handleChange}
+							style={{ color: 'var(--darkgreen)' }}
+						>
+							<Tab label='Sign In' {...a11yProps(0)} />
+							<Tab label='Sign Up' {...a11yProps(1)} />
+						</Tabs>
+					</Box>
 
-					<div className='login__container'>
-						<h1>Sign-in</h1>
-
-						<form>
-							<div className='login__input'>
-								<h5>E-mail</h5>
-								<input
-									className='login__inputEmail'
-									type='email'
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-								/>
-								<span className='login__inputSpan'>* Required</span>
-							</div>
-
-							<div className='login__input'>
-								<h5>Password</h5>
-								<input
-									className='login__inputPassword'
-									type='password'
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-								/>
-								<span className='login__inputSpan'>* Required</span>
-							</div>
-
-							<button
-								type='submit'
-								className='login__signInButton'
-								onClick={signIn}
-							>
-								Sign In
-							</button>
-						</form>
-
-						<p>
-							By signing-in to the AMAZON FAKE CLONE, you agree to the{' '}
-							<a href='/' className='fake'>
-								conditions of Use &amp; sale
-							</a>
-							. Please see our{' '}
-							<a href='/' className='fake'>
-								Privacy Notice
-							</a>
-							, our Cookies Notice and our Interest-Based Ads Notice.
-						</p>
-
-						<button className='login__registerButton' onClick={register}>
-							Create your Amazon Account
-						</button>
-					</div>
-				</div>
+					<TabPanel value={value} index={0}>
+						<Signin
+							email={email}
+							password={password}
+							setEmail={setEmail}
+							setPassword={setPassword}
+							loading={loading}
+							setLoading={setLoading}
+							navigate={navigate}
+						/>
+					</TabPanel>
+					<TabPanel value={value} index={1}>
+						<Signup
+							fName={fName}
+							setfName={setfName}
+							lName={lName}
+							setlName={setlName}
+							email={email}
+							password={password}
+							confirmPassword={confirmPassword}
+							setEmail={setEmail}
+							setPassword={setPassword}
+							setConfirmPassword={setConfirmPassword}
+							loading={loading}
+							setLoading={setLoading}
+							navigate={navigate}
+						/>
+					</TabPanel>
+				</Box>
 			)}
 		</div>
 	)
 }
 
 export default Login
+
+TabPanel.propTypes = {
+	children: PropTypes.node,
+	index: PropTypes.number.isRequired,
+	value: PropTypes.number.isRequired
+}
