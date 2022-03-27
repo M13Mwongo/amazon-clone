@@ -3,6 +3,7 @@
 //Images to be imported
 import logo from '../assets/amazon.png'
 import icon from '../assets/amazon_icon.png'
+import banner from '../assets/banner.jpg'
 import heroLanding from '../assets/heroLanding.jpg'
 
 //Products to be displayed on the Products Component.
@@ -62,4 +63,4 @@ const products = [
 	}
 ]
 
-export { logo, icon, heroLanding, products }
+export { banner, logo, icon, heroLanding, products }

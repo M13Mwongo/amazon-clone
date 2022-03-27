@@ -8,13 +8,15 @@
 	--blue: #131921;
 	--lightblue: #f0faff;
 	--orange: #ffad4c;
+	--altorange: #dda128;
+	--yellow: #ffd814;
+	--altyellow: #e8cd44;
 	--darkgrey: #8a9099;
 	--grey: #b8bfca;
-	--red: #fb0000;
 	--fadedgrey: rgb(184, 191, 202, 0.35);
+	--red: #fb0000;
 	--darkgreen: #359189;
 	--lightgreen: #6fc7be;
-	--altorange: #e2a325;
 	--altaltorange: #bc871e;
 }
 

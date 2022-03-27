@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Header, Home, Login, Test } from './components'
+import { Checkout, Header, Home, Login, Test } from './components'
 import { auth } from './fbConfig'
 import { useStateValue } from './contextAPI/StateProvider'
 
@@ -39,6 +39,7 @@ function App() {
 				<Routes>
 					<Route path='/login' element={<Login />} />
 					<Route path='/' element={<Home />} />
+					<Route path='/checkout' element={<Checkout />} />
 					<Route path='/test' element={<Test />} />
 				</Routes>
 			</div>
