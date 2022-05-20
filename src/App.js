@@ -7,7 +7,7 @@ import { useStateValue } from './contextAPI/StateProvider'
 import './App.css'
 
 function App() {
-	const [{ basket }, dispatch] = useStateValue()
+	const [dispatch] = useStateValue()
 
 	useEffect(() => {
 		auth.onAuthStateChanged((authUser) => {
