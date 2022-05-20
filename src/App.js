@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Checkout, Header, Home, Login, Test } from './components'
 import { auth } from './fbConfig'
@@ -7,7 +7,7 @@ import { useStateValue } from './contextAPI/StateProvider'
 import './App.css'
 
 function App() {
-	const [{}, dispatch] = useStateValue()
+	const [{ basket }, dispatch] = useStateValue()
 
 	useEffect(() => {
 		auth.onAuthStateChanged((authUser) => {
@@ -30,7 +30,7 @@ function App() {
 				})
 			}
 		})
-	}, [])
+	}, [dispatch])
 
 	return (
 		<Router>
