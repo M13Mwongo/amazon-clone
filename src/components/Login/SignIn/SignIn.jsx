@@ -1,58 +1,116 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../../fbConfig'
+import { LoadingModal } from '../../../constants'
+import './signin.css'
 
-const SignIn = ({
-	email,
-	setEmail,
-	password,
-	setPassword,
-	setLoading,
-	navigate
-}) => {
+import {
+	Box,
+	IconButton,
+	OutlinedInput,
+	InputLabel,
+	InputAdornment,
+	FormControl,
+	TextField
+} from '@mui/material'
+import {
+	AiOutlineEye as Visibility,
+	AiOutlineEyeInvisible as VisibilityOff
+} from 'react-icons/ai'
+
+const SignIn = () => {
+	const navigate = useNavigate()
+	const [values, setValues] = useState({
+		email: '',
+		password: '',
+		errorStatus: false,
+		showPassword: false
+	})
+
 	const signin = async (e) => {
 		e.preventDefault()
-		setLoading(true)
-		await signInWithEmailAndPassword(auth, email, password)
+
+		//navigate('/loading', { replace: false })
+
+		await signInWithEmailAndPassword(auth, values.email, values.password)
 			.then((authenticatedUser) => {
 				// Signed in
-				//const user = auth.user
+				const user = authenticatedUser.user
 				navigate('/', { replace: true })
-				setLoading(false)
 			})
 			.catch((error) => {
-				alert(error.message)
+				const errorCode = error.code
+				const errorMessage = error.message
+				setValues({ ...values, errorStatus: true })
+				alert(errorCode)
 			})
+	}
+
+	const handleChange = (prop) => (event) => {
+		setValues({ ...values, [prop]: event.target.value })
+	}
+
+	const handleClickShowPassword = () => {
+		setValues({
+			...values,
+			showPassword: !values.showPassword
+		})
+	}
+
+	const handleMouseDownPassword = (event) => {
+		event.preventDefault()
 	}
 
 	return (
 		<div className='login__container'>
-			<form>
-				<div className='login__input'>
-					<h5>E-mail</h5>
-					<input
-						className='login__inputEmail'
-						type='email'
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						onBlur
+			<Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+				<TextField
+					required
+					value={values.email}
+					onChange={handleChange('email')}
+					id='outlined-required'
+					label='Email'
+					placeholder='example@email.com'
+					sx={{
+						marginTop: '10px',
+						width: '100%',
+						borderColor: 'var(--orange)'
+					}}
+				/>
+				<FormControl
+					required
+					variant='outlined'
+					className='login__input_password input control'
+					sx={{ marginTop: '10px', width: '100%' }}
+				>
+					<InputLabel htmlFor='outlined-adornment-password'>
+						Password
+					</InputLabel>
+					<OutlinedInput
+						id='outlined-adornment-password'
+						type={values.showPassword ? 'text' : 'password'}
+						value={values.password}
+						onChange={handleChange('password')}
+						endAdornment={
+							<InputAdornment position='end'>
+								<IconButton
+									aria-label='toggle password visibility'
+									onClick={handleClickShowPassword}
+									onMouseDown={handleMouseDownPassword}
+									edge='end'
+								>
+									{values.showPassword ? <VisibilityOff /> : <Visibility />}
+								</IconButton>
+							</InputAdornment>
+						}
+						label='Password'
 					/>
-				</div>
-
-				<div className='login__input'>
-					<h5>Password</h5>
-					<input
-						className='login__inputPassword'
-						type='password'
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-					/>
-				</div>
-
-				<button type='submit' className='login__signInButton' onClick={signin}>
-					Sign In
+				</FormControl>
+				<button className='login__signin_button' onClick={signin}>
+					Submit
 				</button>
-			</form>
+			</Box>
 		</div>
 	)
 }

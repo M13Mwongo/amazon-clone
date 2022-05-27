@@ -92,33 +92,6 @@ button:hover {
 	font-size: 2em;
 }
 
-.login__signInButton {
-	background: var(--orange);
-	border-radius: 5px;
-	width: 100%;
-	height: 30px;
-	border: 2px solid var(--grey);
-	margin-top: 10px;
-}
-
-.login__signInButton:hover {
-	background-color: var(--altorange);
-	transition: 0.12s ease-in-out;
-}
-
-.login__registerButton {
-	border-radius: 5px;
-	border: none;
-	background-color: var(--lightgreen);
-	width: 100%;
-	height: 30px;
-	margin-top: 10px;
-}
-.login__registerButton:hover {
-	background-color: var(--darkgreen);
-	color: var(--altwhite);
-}
-
 .fake {
 	color: var(--darkgreen);
 }

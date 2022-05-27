@@ -1,4 +1,7 @@
-//File will contain all constant/ static data that will be exported from here
+//File will contain all static data that will be exported from here
+import React, { useState } from 'react'
+import { Box, Button, Fade, Modal } from '@mui/material'
+import { PuffLoader } from 'react-spinners'
 
 //Images to be imported
 import logo from '../assets/amazon.png'
@@ -60,7 +63,57 @@ const products = [
 		rating: 4,
 		image:
 			'https://images-na.ssl-images-amazon.com/images/I/6125mFrzr6L._AC_SX355_.jpg'
+	},
+	{
+		id: '17386969',
+		title: 'Crayola Light Up Tracing Pad Pink, Gifts For Girls & Boys',
+		price: '25.99',
+		rating: 4,
+		image: 'https://m.media-amazon.com/images/I/81XF01g3PFL._AC_SX679_.jpg'
 	}
 ]
 
-export { banner, logo, icon, heroLanding, products }
+//Loading modal animation
+const style = {
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: 100,
+	bgcolor: 'var(--blue)',
+	borderRadius: '4px',
+	p: 4,
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center'
+}
+
+const LoadingModal = (props) => {
+	const [open, setOpen] = useState(false)
+	const handleOpen = () => setOpen(true)
+	const handleClose = () => setOpen(false)
+
+	return (
+		<div>
+			<Button onClick={handleOpen}>Open modal</Button>
+			<Modal
+				open={open}
+				onClose={handleClose}
+				aria-labelledby='modal-modal-title'
+				aria-describedby='modal-modal-description'
+			>
+				<Fade in={open}>
+					<Box sx={style}>
+						<PuffLoader
+							color='var(--orange)'
+							speedMultiplier={1.6}
+							size={100}
+						/>
+					</Box>
+				</Fade>
+			</Modal>
+		</div>
+	)
+}
+
+export { banner, logo, icon, heroLanding, products, LoadingModal }

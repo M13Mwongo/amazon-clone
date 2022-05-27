@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { Checkout, Header, Home, Login, Test } from './components'
+import { Checkout, Header, Home, Login } from './components'
+import { LoadingModal } from './constants'
 import { auth } from './fbConfig'
 import { useStateValue } from './contextAPI/StateProvider'
 
@@ -40,7 +41,7 @@ function App() {
 					<Route path='/login' element={<Login />} />
 					<Route path='/' element={<Home />} />
 					<Route path='/checkout' element={<Checkout />} />
-					<Route path='/test' element={<Test />} />
+					<Route path='/loading' element={<LoadingModal />} />
 				</Routes>
 			</div>
 		</Router>
