@@ -5,7 +5,6 @@ import { Tab, Tabs, Box, Typography } from '@mui/material'
 import Signin from './SignIn/SignIn.jsx'
 import Signup from './SignUp/SignUp.jsx'
 import { icon } from '../../constants'
-import { ScaleLoader } from 'react-spinners'
 import './Login.css'
 
 function TabPanel({ children, value, index }) {
@@ -48,7 +47,10 @@ const Login = () => {
 					<Tabs
 						value={value}
 						onChange={handleChange}
-						style={{ color: 'var(--darkgreen)' }}
+						style={{
+							backgroundColor: 'var(--purewhite)',
+							padding: '10px 20px'
+						}}
 					>
 						<Tab label='Sign In' {...a11yProps(0)} />
 						<Tab label='Sign Up' {...a11yProps(1)} />

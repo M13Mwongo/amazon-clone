@@ -28,6 +28,7 @@ const SignUp = () => {
 		showPassword: false,
 		showConfirmPassword: false,
 		errorName: false,
+		errorEmail: false,
 		errorPassword: false,
 		errorConfirmPassword: false
 	})
@@ -55,9 +56,20 @@ const SignUp = () => {
 	}
 
 	const validateName = () => {
-		values.name.length < 4 && values.name.length > 0
+		values.name.length < 4
 			? setValues({ ...values, errorName: true })
 			: setValues({ ...values, errorName: false })
+	}
+
+	const validateEmail = () => {
+		const mailFormat =
+			/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+
+		if (!values.email.match(mailFormat)) {
+			setValues({ ...values, errorEmail: true })
+		} else {
+			setValues({ ...values, errorEmail: false })
+		}
 	}
 
 	const validatePassword = () => {
@@ -100,6 +112,7 @@ const SignUp = () => {
 						value={values.name}
 						onChange={handleChange('name')}
 						onBlur={validateName}
+						error={values.errorName ? true : false}
 						id='outlined-required'
 						label='Name'
 						placeholder='Your Name'
@@ -116,6 +129,9 @@ const SignUp = () => {
 						required
 						value={values.email}
 						onChange={handleChange('email')}
+						onBlur={validateEmail}
+						helperText={values.errorEmail ? 'Invalid email address' : null}
+						error={values.errorEmail ? true : false}
 						id='outlined-required'
 						label='Email'
 						placeholder='example@email.com'
@@ -141,6 +157,11 @@ const SignUp = () => {
 							value={values.password}
 							onChange={handleChange('password')}
 							onBlur={validatePassword}
+							error={
+								values.errorPassword || values.errorConfirmPassword
+									? true
+									: false
+							}
 							endAdornment={
 								<InputAdornment position='end'>
 									<IconButton
@@ -156,7 +177,10 @@ const SignUp = () => {
 							label='Password'
 						/>
 						{values.errorPassword && (
-							<FormHelperText id='outlined-weight-helper-text'>
+							<FormHelperText
+								id='outlined-weight-helper-text'
+								style={{ color: 'red' }}
+							>
 								Your password must be longer than 5 characters
 							</FormHelperText>
 						)}
@@ -175,6 +199,7 @@ const SignUp = () => {
 							value={values.confirmPassword}
 							onChange={handleChange('confirmPassword')}
 							onBlur={validateConfirmPassword}
+							error={values.errorConfirmPassword ? true : false}
 							endAdornment={
 								<InputAdornment position='end'>
 									<IconButton
@@ -194,7 +219,10 @@ const SignUp = () => {
 							label='Password'
 						/>
 						{values.errorConfirmPassword && (
-							<FormHelperText id='outlined-weight-helper-text'>
+							<FormHelperText
+								id='outlined-weight-helper-text'
+								style={{ color: 'red' }}
+							>
 								Password must match
 							</FormHelperText>
 						)}

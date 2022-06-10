@@ -5,7 +5,7 @@ import './Product.css'
 import { useStateValue } from '../../contextAPI/StateProvider'
 
 const Product = ({ id, title, image, price, rating }) => {
-	const [dispatch] = useStateValue()
+	const [{}, dispatch] = useStateValue()
 
 	const addToBasket = () => {
 		dispatch({
@@ -18,6 +18,7 @@ const Product = ({ id, title, image, price, rating }) => {
 				rating: rating
 			}
 		})
+		console.log('Added to basket')
 	}
 	return (
 		<div className='product'>

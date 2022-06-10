@@ -9,6 +9,12 @@ button:hover {
 
 .login {
 	background-color: var(--purewhite);
+	background-image: url('../../assets/online_shopping.svg');
+	background-repeat: no-repeat;
+	background-position: 0% 10 0%;
+	background-size: contain;
+	background-attachment: fixed;
+	background-blend-mode: normal;
 	height: calc(100vh - 60px);
 	display: flex;
 	flex-direction: column;

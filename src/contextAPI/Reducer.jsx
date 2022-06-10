@@ -12,10 +12,9 @@ const reducer = (state, action) => {
 
 	switch (action.type) {
 		case 'ADD_TO_BASKET':
-			return {
-				...state,
-				basket: [...state.basket, action.item]
-			}
+			const updateBasket = { ...state, basket: [...state.basket, action.item] }
+
+			return updateBasket
 
 		case 'EMPTY_BASKET':
 			return {
@@ -33,12 +32,10 @@ const reducer = (state, action) => {
 			let newBasket = tempBasket.valueOf()
 
 			if (itemIndex >= 0) {
-				console.log('item Index', itemIndex)
 				newBasket.splice(itemIndex, 1)
 			} else {
-				console.warn(
-					`Cant remove product (id: ${action.id}) as its not in basket!`
-				)
+				alert(`Cant remove product (id: ${action.id}) as its not in basket!`)
+				console.warn('Critical error. Review code')
 			}
 
 			return {

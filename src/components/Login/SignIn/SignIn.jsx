@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../../fbConfig'
-import { LoadingModal } from '../../../constants'
 import './signin.css'
-
 import {
 	Box,
 	IconButton,
@@ -12,6 +10,7 @@ import {
 	InputLabel,
 	InputAdornment,
 	FormControl,
+	FormHelperText,
 	TextField
 } from '@mui/material'
 import {
@@ -24,7 +23,9 @@ const SignIn = () => {
 	const [values, setValues] = useState({
 		email: '',
 		password: '',
-		errorStatus: false,
+		emailError: false,
+		passwordError: false,
+		loginError: false,
 		showPassword: false
 	})
 
@@ -42,7 +43,7 @@ const SignIn = () => {
 			.catch((error) => {
 				const errorCode = error.code
 				const errorMessage = error.message
-				setValues({ ...values, errorStatus: true })
+				setValues({ ...values, loginError: true })
 				alert(errorCode)
 			})
 	}
@@ -62,6 +63,17 @@ const SignIn = () => {
 		event.preventDefault()
 	}
 
+	const validateEmail = () => {
+		const mailFormat =
+			/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+
+		if (!values.email.match(mailFormat)) {
+			setValues({ ...values, emailError: true })
+		} else {
+			setValues({ ...values, emailError: false })
+		}
+	}
+
 	return (
 		<div className='login__container'>
 			<Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -69,8 +81,11 @@ const SignIn = () => {
 					required
 					value={values.email}
 					onChange={handleChange('email')}
+					onBlur={validateEmail}
 					id='outlined-required'
 					label='Email'
+					helperText={values.emailError ? 'Invalid Email Address' : null}
+					error={values.emailError ? true : false}
 					placeholder='example@email.com'
 					sx={{
 						marginTop: '10px',
@@ -92,6 +107,7 @@ const SignIn = () => {
 						type={values.showPassword ? 'text' : 'password'}
 						value={values.password}
 						onChange={handleChange('password')}
+						error={values.passwordError ? true : false}
 						endAdornment={
 							<InputAdornment position='end'>
 								<IconButton
@@ -106,6 +122,14 @@ const SignIn = () => {
 						}
 						label='Password'
 					/>
+					<FormHelperText
+						id='outlined-weight-helper-text'
+						style={{ color: 'red' }}
+					>
+						{values.passwordError
+							? 'Passwords must be more than 3 characters'
+							: null}
+					</FormHelperText>
 				</FormControl>
 				<button className='login__signin_button' onClick={signin}>
 					Submit

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Box, Grid } from '@mui/material'
-
 import { Product } from '..'
 import { heroLanding, products } from '../../constants'
 
@@ -29,6 +28,7 @@ const Home = () => {
 									className='home__container_grid-product'
 								>
 									<Product
+										id={product.id}
 										title={product.title}
 										rating={product.rating}
 										price={product.price}
@@ -47,6 +47,7 @@ const Home = () => {
 								className='home__container_grid-product'
 							>
 								<Product
+									id={product.id}
 									title={product.title}
 									rating={product.rating}
 									price={product.price}
@@ -65,6 +66,7 @@ const Home = () => {
 								className='home__container_grid-product'
 							>
 								<Product
+									id={product.id}
 									title={product.title}
 									rating={product.rating}
 									price={product.price}
